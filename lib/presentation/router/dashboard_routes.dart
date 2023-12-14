@@ -1,4 +1,7 @@
 import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/screens/friends/friends_screen.dart';
+import 'package:car_wayz/presentation/screens/profile/profile_screen.dart';
+import 'package:car_wayz/presentation/screens/ranking/ranking_screen.dart';
 
 List<Page<dynamic>> onGenerateDashboardViewPages(
   DashboardState state,
@@ -7,11 +10,11 @@ List<Page<dynamic>> onGenerateDashboardViewPages(
   switch (state) {
     case DashboardState.home:
       return [HomeScreen.page()];
-    case DashboardState.splash:
-      return [SplashScreen.page()];
-    case DashboardState.settings:
-      return [AddScreen.page()];
-    case DashboardState.add:
-      return [AddScreen.page()];
+    case DashboardState.friends:
+      return [FriendsScreen.page()];
+    case DashboardState.ranking:
+      return [RankingScreen.page()];
+    case DashboardState.profile:
+      return [ProfileScreen.page()];
   }
 }

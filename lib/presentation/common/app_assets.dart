@@ -14,7 +14,8 @@ class AppAssets {
 extension Assets on BuildContext {
   AssetImage assetImage(String name) => AssetImage(name);
 
-  SvgPicture svgImage(String name, {Color? color, Size? size}) => SvgPicture.asset(
+  SvgPicture svgImage(String name, {Color? color, Size? size}) =>
+      SvgPicture.asset(
         name,
         width: size?.width,
         height: size?.height,
