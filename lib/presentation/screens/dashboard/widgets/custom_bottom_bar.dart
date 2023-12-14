@@ -11,22 +11,24 @@ class CustomBottomBarState extends ConsumerState<CustomBottomBar> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    AppState status = AppState.home;
+    DashboardState status = DashboardState.home;
     switch (index) {
       case 0:
-        status = AppState.home;
+        status = DashboardState.home;
       case 1:
-        status = AppState.splash;
+        status = DashboardState.splash;
 
       case 2:
-        status = AppState.settings;
+        status = DashboardState.settings;
       case 3:
-        status = AppState.add;
+        status = DashboardState.add;
     }
-    ref.read(appProvider.notifier).update((state) => state = status);
-    setState(() {
-      _selectedIndex = index;
-    });
+    ref.read(dashboardProvider.notifier).update((state) => state = status);
+    setState(
+      () {
+        _selectedIndex = index;
+      },
+    );
   }
 
   @override
@@ -35,10 +37,8 @@ class CustomBottomBarState extends ConsumerState<CustomBottomBar> {
       data: ThemeData(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        //splashFactory: NoSplash.splashFactory,
       ),
       child: BottomNavigationBar(
-        //type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -60,7 +60,6 @@ class CustomBottomBarState extends ConsumerState<CustomBottomBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-
         onTap: _onItemTapped,
       ),
     );

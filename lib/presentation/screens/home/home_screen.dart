@@ -1,4 +1,5 @@
 import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/common/app_provider/app_provider.dart';
 import 'package:car_wayz/presentation/screens/home/provider/home_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -18,6 +19,7 @@ class HomeScreen extends ConsumerWidget {
           FloatingActionButton(
             onPressed: () {
               ref.read(homeProvider.notifier).changeName();
+              ref.read(appProvider.notifier).update((state) => state = AppState.login);
             },
             child: Text('Zmien text'),
           ),

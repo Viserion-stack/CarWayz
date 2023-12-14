@@ -1,17 +1,17 @@
 import 'package:car_wayz/export.dart';
 
-List<Page<dynamic>> onGenerateAppViewPages(
-  AppState state,
+List<Page<dynamic>> onGenerateDashboardViewPages(
+  DashboardState state,
   List<Page<dynamic>> pages,
 ) {
   switch (state) {
-    case AppState.home:
+    case DashboardState.home:
       return [HomeScreen.page()];
-    case AppState.splash:
+    case DashboardState.splash:
       return [SplashScreen.page()];
-    case AppState.settings:
+    case DashboardState.settings:
       return [AddScreen.page()];
-    case AppState.add:
+    case DashboardState.add:
       return [AddScreen.page()];
   }
 }

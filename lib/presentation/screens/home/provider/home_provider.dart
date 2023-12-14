@@ -1,11 +1,12 @@
+import 'package:car_wayz/data/model/home.dart';
 import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/common/state_type.dart';
 
-import '../../../../data/model/home.dart';
-import '../../../common/state_type.dart';
-
-final homeProvider = StateNotifierProvider<HomeNotifier, Home>((ref) {
-  return HomeNotifier(const Home.initial());
-});
+final homeProvider = StateNotifierProvider<HomeNotifier, Home>(
+  (ref) {
+    return HomeNotifier(const Home.initial());
+  },
+);
 
 class HomeNotifier extends StateNotifier<Home> {
   HomeNotifier(super.state);

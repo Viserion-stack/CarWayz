@@ -1,10 +1,8 @@
-import '../../../export.dart';
+import 'package:car_wayz/export.dart';
 
 enum AppState {
-  home,
-  splash,
-  add,
-  settings,
+  login,
+  dashboard,
 }
 
-final appProvider = StateProvider<AppState>((ref) => AppState.home);
+final appProvider = StateProvider<AppState>((ref) => AppState.login);

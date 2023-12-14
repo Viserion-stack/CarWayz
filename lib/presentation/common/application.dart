@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:car_wayz/core/l10n/translations.dart';
 import 'package:car_wayz/core/theme/theme.dart';
-import 'package:car_wayz/presentation/screens/dashboard/dashboard_screen.dart';
+import 'package:car_wayz/presentation/components/app_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,7 +27,7 @@ class Application extends StatelessWidget {
           supportedLocales: Translations.supportedLocales,
           theme: theme,
           darkTheme: darkTheme,
-          home: const DashboardScreen(),
+          home: const AppContainer(),
         ),
       ),
     );
