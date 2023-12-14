@@ -42,15 +42,15 @@ class LightPalette extends Palette {
   @override
   final Color snackBarColor = const Color(0xffffffff);
   @override
-  final Color cardColor = const Color(0xff4A3F35);
+  final Color cardColor = const Color(0xff52522F);
   @override
-  final Color primaryColor = const Color(0xff2F2519);
+  final Color primaryColor = const Color(0xff393937);
   @override
   final Color primaryDarkColor = const Color(0xff112C4B);
   @override
   final Color primaryLightColor = const Color(0xff486383);
   @override
-  final Color accentColor = const Color(0xffFA7D09);
+  final Color accentColor = const Color(0xffEEEA01);
   @override
   final Color accentVariantColor = const Color(0xff000000);
   @override
@@ -89,15 +89,15 @@ class DarkPalette extends Palette {
   @override
   final Color snackBarColor = const Color(0xffffffff);
   @override
-  final Color cardColor = const Color(0xff4A3F35);
+  final Color cardColor = const Color(0xff52522F);
   @override
-  final Color primaryColor = const Color(0xff2F2519);
+  final Color primaryColor = const Color(0xff393937);
   @override
   final Color primaryDarkColor = const Color(0xff112C4B);
   @override
   final Color primaryLightColor = const Color(0xff486383);
   @override
-  final Color accentColor = const Color(0xffFA7D09);
+  final Color accentColor = const Color(0xffEEEA01);
   @override
   final Color accentVariantColor = const Color(0xff000000);
   @override
@@ -126,7 +126,9 @@ class DarkPalette extends Palette {
 
 class AppTheme {
   static Palette paletteOf(BuildContext context) {
-    return context.theme.brightness == Brightness.light ? LightPalette() : DarkPalette();
+    return context.theme.brightness == Brightness.light
+        ? LightPalette()
+        : DarkPalette();
   }
 
   ThemeData theme(Palette palette) {
@@ -162,7 +164,10 @@ class AppTheme {
           systemNavigationBarIconBrightness: palette.brightness,
         ),
         toolbarTextStyle: TextStyle(color: palette.primaryColor),
-        titleTextStyle: TextStyle(color: palette.primaryColor, fontWeight: FontWeight.bold, fontSize: 16),
+        titleTextStyle: TextStyle(
+            color: palette.primaryColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 16),
         color: palette.appBarBackgroundColor,
         iconTheme: IconThemeData(color: palette.iconColor),
         actionsIconTheme: IconThemeData(color: palette.iconColor),
@@ -182,7 +187,8 @@ class AppTheme {
     );
     return theme.copyWith(
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(backgroundColor: palette.accentVariantColor),
+        style: ElevatedButton.styleFrom(
+            backgroundColor: palette.accentVariantColor),
       ),
     );
   }
@@ -250,7 +256,8 @@ class AppTheme {
         ),
       );
 
-  MaterialColor generateMaterialColor(Color color) => MaterialColor(color.value, {
+  MaterialColor generateMaterialColor(Color color) =>
+      MaterialColor(color.value, {
         50: tintColor(color, 0.9),
         100: tintColor(color, 0.8),
         200: tintColor(color, 0.6),

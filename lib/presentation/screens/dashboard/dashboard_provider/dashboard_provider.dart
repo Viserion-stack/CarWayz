@@ -2,9 +2,9 @@ import 'package:car_wayz/export.dart';
 
 enum DashboardState {
   home,
-  splash,
-  add,
-  settings,
+  friends,
+  ranking,
+  profile,
 }
 
 final dashboardProvider =

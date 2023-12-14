@@ -1,9 +1,9 @@
 import 'package:car_wayz/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 
-class AddScreen extends StatelessWidget {
-  const AddScreen({super.key});
-  static Page<void> page() => const MaterialPage<void>(child: AddScreen());
+class RankingScreen extends StatelessWidget {
+  static Page<void> page() => const MaterialPage<void>(child: RankingScreen());
+  const RankingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,11 @@ class AddScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text('Home screen'),
+            child: Text(
+              'Ranking screen',
+              style: context.textTheme.bodyMedium
+                  ?.copyWith(color: context.palette.textOnPrimaryColor),
+            ),
           ),
         ],
       ),
