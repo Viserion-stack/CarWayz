@@ -1,8 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/components/auth_provider/auth_provider.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends ConsumerStatefulWidget {
+  static const String routeName = '/';
+
   const SplashScreen({super.key});
   static Page<void> page() => const MaterialPage<void>(child: SplashScreen());
+
+  @override
+  SplashScreenState createState() => SplashScreenState();
+}
+
+class SplashScreenState extends ConsumerState<SplashScreen> {
+  @override
+  void initState() {
+    ref.read(authProvider.notifier).onInitiated();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

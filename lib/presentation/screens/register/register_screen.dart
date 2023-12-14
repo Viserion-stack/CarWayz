@@ -2,12 +2,8 @@ import 'package:car_wayz/export.dart';
 import 'package:car_wayz/presentation/common/app_provider/app_provider.dart';
 import 'package:car_wayz/presentation/common/dimen.dart';
 
-class LoginScreen extends ConsumerWidget {
-  static const routeName = '/login';
-
-  const LoginScreen({super.key});
-
-  static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
+class RegisterScreen extends ConsumerWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +17,7 @@ class LoginScreen extends ConsumerWidget {
             TextButton(
               onPressed: () => ref
                   .read(appProvider.notifier)
-                  .update((state) => state = AppState.dashboard),
+                  .update((state) => state = AppState.login),
               child: const Text('Log In'),
             ),
           ],

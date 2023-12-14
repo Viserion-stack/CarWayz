@@ -8,7 +8,7 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
 class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier(super.sate);
 
-  Future<void> onInitiated() async {
-    state = state.copyWith(authStateType: AuthStateType.initial);
+  void onInitiated() {
+    state = state.copyWith(authStateType: AuthStateType.logged);
   }
 }

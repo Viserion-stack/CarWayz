@@ -1,6 +1,7 @@
 import 'package:car_wayz/core/app_logger/app_logger.dart';
 import 'package:car_wayz/core/theme/theme.dart';
 import 'package:car_wayz/presentation/common/application.dart';
+import 'package:car_wayz/presentation/router/app_route_factory.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ Future<void> runApplication() async {
   runApp(
     Application(
       appTheme: AppTheme(),
+      appRouteFactory: AppRouteFactory(),
     ),
   );
 }

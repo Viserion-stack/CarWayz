@@ -2,6 +2,8 @@ import 'package:car_wayz/export.dart';
 
 
 class DashboardScreen extends StatelessWidget {
+  static const routeName = '/dashboard';
+
   const DashboardScreen({
     super.key,
   });
