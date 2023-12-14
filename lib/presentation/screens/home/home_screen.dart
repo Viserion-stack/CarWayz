@@ -21,7 +21,7 @@ class HomeScreen extends ConsumerWidget {
               ref.read(homeProvider.notifier).changeName();
               ref.read(appProvider.notifier).update((state) => state = AppState.login);
             },
-            child: Text('Zmien text'),
+            child: const Text('Zmien text'),
           ),
         ],
       ),

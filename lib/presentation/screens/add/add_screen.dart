@@ -10,7 +10,7 @@ class AddScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Center(
+          Center(
             child: Text('Home screen'),
           ),
         ],
