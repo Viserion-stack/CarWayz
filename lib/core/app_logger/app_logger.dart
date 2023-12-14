@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer_log;
 
+// ignore: depend_on_referenced_packages
 import 'package:logging/logging.dart';
 
 /// Log message at level [Level.FINEST].

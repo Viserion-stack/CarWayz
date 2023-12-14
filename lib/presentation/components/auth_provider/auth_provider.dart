@@ -1,14 +1,35 @@
+import 'package:car_wayz/data/model/user.dart';
 import 'package:car_wayz/export.dart';
 import 'package:car_wayz/presentation/components/auth_provider/auth_state.dart';
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
-  (ref) => AuthNotifier(const AuthState.initial()),
-);
+import '../../../data/repository/authentication.dart';
+
+final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
+  final authRepo = AuthRepository();
+
+  return AuthNotifier(const AuthState.initial(), authRepo);
+});
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  AuthNotifier(super.sate);
+  final AuthRepository auth;
+  AuthNotifier(super.sate, this.auth);
 
-  void onInitiated() {
-    state = state.copyWith(authStateType: AuthStateType.logged);
+  Future<void> onInitiated() async {
+    auth.user.listen((user) {
+      if (user == User.empty) {
+        state = state.copyWith(authStateType: AuthStateType.initial);
+      } else {
+        state = state.copyWith(authStateType: AuthStateType.logged);
+        debugPrint('Zalogowano ${user.email}');
+      }
+    });
+  }
+
+  Future<void> loginIn(String email, String password) async {
+    await auth.logInWithEmailAndPassword(email: email, password: password);
+  }
+
+  Future<void> logout() async {
+    auth.logOut();
   }
 }

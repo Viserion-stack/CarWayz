@@ -18,7 +18,10 @@ class DashboardScreen extends StatelessWidget {
         return Scaffold(
           body: FlowBuilder(
               state: ref.watch(dashboardProvider),
-              onGeneratePages: onGenerateDashboardViewPages),
+              onGeneratePages: onGenerateDashboardViewPages,
+              observers: [
+                HeroController(),
+              ]),
           bottomNavigationBar: const CustomBottomBar(),
         );
       },

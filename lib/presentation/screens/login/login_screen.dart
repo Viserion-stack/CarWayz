@@ -1,6 +1,5 @@
 import 'package:car_wayz/export.dart';
-import 'package:car_wayz/presentation/common/app_provider/app_provider.dart';
-import 'package:car_wayz/presentation/common/dimen.dart';
+import 'package:car_wayz/presentation/screens/login/widgets/login_form.dart';
 
 class LoginScreen extends ConsumerWidget {
   static const routeName = '/login';
@@ -12,20 +11,12 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Login'),
-            Gap.medium,
-            TextButton(
-              onPressed: () => ref
-                  .read(appProvider.notifier)
-                  .update((state) => state = AppState.dashboard),
-              child: const Text('Log In'),
-            ),
-          ],
-        ),
+      appBar: AppBar(
+        title: const Text('Login'),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: LoginForm(),
       ),
     );
   }

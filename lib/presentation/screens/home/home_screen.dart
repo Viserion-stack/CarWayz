@@ -1,6 +1,6 @@
 import 'package:car_wayz/export.dart';
-import 'package:car_wayz/presentation/common/app_provider/app_provider.dart';
-import 'package:car_wayz/presentation/screens/home/provider/home_provider.dart';
+
+
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -14,14 +14,26 @@ class HomeScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text(name),
+            child: Text(name.toString()),
           ),
           FloatingActionButton(
             onPressed: () {
+
               ref.read(homeProvider.notifier).changeName();
               ref.read(appProvider.notifier).update((state) => state = AppState.login);
             },
             child: const Text('Zmien text'),
+          ),
+          Gap.medium,
+          SizedBox(
+            width: 100,
+            child: FloatingActionButton(
+              heroTag: 'default',
+              onPressed: () {
+                ref.read(authProvider.notifier).logout();
+              },
+              child: const Text('Logout'),
+            ),
           ),
         ],
       ),

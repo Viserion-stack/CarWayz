@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "425463681392",
+    "project_id": "flutter-car-wayz-app",
+    "storage_bucket": "flutter-car-wayz-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425463681392:android:ecc94424c186192bc6bfb5",
+        "android_client_info": {
+          "package_name": "com.example.car_wayz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425463681392-tqu3mdrkfchjjddsbnqjmb47hpblo6la.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGOnTV_amEtWKhT2kyTVPWpnUEZKNQH4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425463681392-tqu3mdrkfchjjddsbnqjmb47hpblo6la.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "425463681392-div41qabv1amg8kioijracfa7027t0qd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carWayz.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

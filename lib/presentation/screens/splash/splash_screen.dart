@@ -1,5 +1,4 @@
 import 'package:car_wayz/export.dart';
-import 'package:car_wayz/presentation/components/auth_provider/auth_provider.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   static const String routeName = '/';

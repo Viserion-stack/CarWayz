@@ -1,6 +1,4 @@
 import 'package:car_wayz/export.dart';
-import 'package:car_wayz/presentation/common/app_provider/app_provider.dart';
-import 'package:car_wayz/presentation/common/dimen.dart';
 
 class RegisterScreen extends ConsumerWidget {
   const RegisterScreen({super.key});
@@ -15,9 +13,11 @@ class RegisterScreen extends ConsumerWidget {
             const Text('Login'),
             Gap.medium,
             TextButton(
-              onPressed: () => ref
-                  .read(appProvider.notifier)
-                  .update((state) => state = AppState.login),
+              onPressed: () {
+                ref
+                    .read(appProvider.notifier)
+                    .update((state) => state = AppState.login);
+              },
               child: const Text('Log In'),
             ),
           ],
