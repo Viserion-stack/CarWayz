@@ -14,6 +14,10 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>car_wayz</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera to take a photo</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need your mic </string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -45,5 +49,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>This app requires access to the photo library.</string>
 </dict>
 </plist>

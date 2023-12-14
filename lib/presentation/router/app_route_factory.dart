@@ -1,3 +1,5 @@
+import 'package:car_wayz/presentation/screens/add/add_route.dart';
+import 'package:car_wayz/presentation/screens/add/add_screen.dart';
 import 'package:car_wayz/presentation/screens/dashboard/dashboard_route.dart';
 import 'package:car_wayz/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:car_wayz/presentation/screens/login/login_route.dart';
@@ -31,6 +33,11 @@ class AppRouteFactory {
             path: DashboardScreen.routeName,
             parentNavigatorKey: rootNavigatorKey,
             builder: (_, state) => dashboardRoute(state),
+          ),
+          GoRoute(
+            path: AddScreen.routeName,
+            parentNavigatorKey: rootNavigatorKey,
+            builder: (_, state) => addRoute(state),
           ),
         ],
       );

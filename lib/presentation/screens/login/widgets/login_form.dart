@@ -16,7 +16,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
     final bool isValid = _form.currentState!.validate();
     if (isValid) {
       _form.currentState!.save();
-      ref.read(authProvider.notifier).loginIn(email, password);
+      ref.read(authProvider.notifier).logIn(email, password);
     }
   }
 

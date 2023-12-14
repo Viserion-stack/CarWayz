@@ -25,7 +25,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     });
   }
 
-  Future<void> loginIn(String email, String password) async {
+  Future<void> logIn(String email, String password) async {
     await auth.logInWithEmailAndPassword(email: email, password: password);
   }
 
