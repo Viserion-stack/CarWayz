@@ -47,10 +47,8 @@ class DashboardBottomBarState extends ConsumerState<DashboardBottomBar> {
       activeIndex: _selectedIndex,
       onTap: (index) => _onItemTapped(index),
       gapLocation: GapLocation.center,
-      notchSmoothness: NotchSmoothness.verySmoothEdge,
+      notchSmoothness: NotchSmoothness.sharpEdge,
       backgroundColor: context.palette.cardColor,
-      leftCornerRadius: cornerRadius,
-      rightCornerRadius: cornerRadius,
     );
   }
 }

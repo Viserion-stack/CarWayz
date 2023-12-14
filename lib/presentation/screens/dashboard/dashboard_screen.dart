@@ -1,7 +1,6 @@
 import 'package:car_wayz/core/theme/theme.dart';
 import 'package:car_wayz/export.dart';
 
-
 class DashboardScreen extends StatelessWidget {
   static const routeName = '/dashboard';
 
@@ -34,7 +33,7 @@ class DashboardScreen extends StatelessWidget {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.transparent,
-            onPressed: () {},
+            onPressed: () => context.push(AddScreen.routeName),
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
