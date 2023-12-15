@@ -1,10 +1,4 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:car_wayz/core/l10n/translations.dart';
-import 'package:car_wayz/core/theme/theme.dart';
-import 'package:car_wayz/presentation/components/navigation_hub.dart';
-import 'package:car_wayz/presentation/router/app_route_factory.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:car_wayz/export.dart';
 
 class Application extends StatelessWidget {
   Application({
@@ -31,6 +25,7 @@ class Application extends StatelessWidget {
         dark: appTheme.theme(DarkPalette()),
         initial: AdaptiveThemeMode.system,
         builder: (theme, darkTheme) => MaterialApp.router(
+          scaffoldMessengerKey: scaffoldKey,
           debugShowCheckedModeBanner: false,
           onGenerateTitle: (context) => Translations.of(context)!.appTitle,
           localizationsDelegates: Translations.localizationsDelegates,

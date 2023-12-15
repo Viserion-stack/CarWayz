@@ -1,4 +1,3 @@
-import 'package:car_wayz/core/theme/theme.dart';
 import 'package:car_wayz/export.dart';
 
 
@@ -9,7 +8,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final name = ref.watch(homeProvider).name;
+    //final name = ref.watch(homeProvider).name;
 
     return Scaffold(
       backgroundColor: context.palette.primaryColor,

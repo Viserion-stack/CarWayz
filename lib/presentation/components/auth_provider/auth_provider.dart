@@ -17,9 +17,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> onInitiated() async {
     auth.user.listen((user) {
       if (user == User.empty) {
-        state = state.copyWith(authStateType: AuthStateType.initial);
+        state = state.copyWith(authStateType: AuthStateType.unauthenticated);
       } else {
-        state = state.copyWith(authStateType: AuthStateType.logged);
+        state = state.copyWith(authStateType: AuthStateType.authenticated);
         debugPrint('Zalogowano ${user.email}');
       }
     });
@@ -27,6 +27,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> logIn(String email, String password) async {
     await auth.logInWithEmailAndPassword(email: email, password: password);
+  }
+  Future<void> signUp(String email, String password) async {
+    await auth.createUser(email: email, password: password);
   }
 
   Future<void> logout() async {

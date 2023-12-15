@@ -1,13 +1,4 @@
-import 'package:car_wayz/presentation/screens/add/add_route.dart';
-import 'package:car_wayz/presentation/screens/add/add_screen.dart';
-import 'package:car_wayz/presentation/screens/dashboard/dashboard_route.dart';
-import 'package:car_wayz/presentation/screens/dashboard/dashboard_screen.dart';
-import 'package:car_wayz/presentation/screens/login/login_route.dart';
-import 'package:car_wayz/presentation/screens/login/login_screen.dart';
-import 'package:car_wayz/presentation/screens/splash/splash_route.dart';
-import 'package:car_wayz/presentation/screens/splash/splash_screen.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
+import 'package:car_wayz/export.dart';
 
 class AppRouteFactory {
   GoRouter router({
@@ -38,6 +29,11 @@ class AppRouteFactory {
             path: AddScreen.routeName,
             parentNavigatorKey: rootNavigatorKey,
             builder: (_, state) => addRoute(state),
+          ),
+          GoRoute(
+            path: SignUpScreen.routeName,
+            parentNavigatorKey: rootNavigatorKey,
+            builder: (_, state) => siginUpRoute(state),
           ),
         ],
       );

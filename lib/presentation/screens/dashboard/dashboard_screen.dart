@@ -1,4 +1,3 @@
-import 'package:car_wayz/core/theme/theme.dart';
 import 'package:car_wayz/export.dart';
 
 class DashboardScreen extends StatelessWidget {

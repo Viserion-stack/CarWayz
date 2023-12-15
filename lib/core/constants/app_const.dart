@@ -1,4 +1,4 @@
-import 'package:flutter/animation.dart';
+import 'package:car_wayz/export.dart';
 
 class AppConst {
   const AppConst._();
@@ -13,3 +13,5 @@ abstract class AppMotion {
   static const splashAnimationDelay = Duration(milliseconds: 1250);
   static const curve = Cubic(0.25, 0.1, 0.25, 1);
 }
+
+final scaffoldKey = GlobalKey<ScaffoldMessengerState>();

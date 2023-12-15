@@ -6,10 +6,10 @@ class PreviewCamera extends StatefulWidget {
   final Function(CameraException error) onError;
 
   const PreviewCamera({
-    Key? key,
+    super.key,
     required this.onReady,
     required this.onError,
-  }) : super(key: key);
+  });
   static const cameraPerrmissionErrorCodes = [
     'cameraPermission',
     'CameraAccessDenied',
@@ -34,11 +34,6 @@ class _ArtCameraState extends State<PreviewCamera> with WidgetsBindingObserver {
     try {
       final cameras = await availableCameras();
       final cameraDescription = cameras.first;
-      // final cameraDescription = cameras.firstWhereOrNull(
-      //     (cam) => cam.lensDirection == CameraLensDirection.back);
-      if (cameraDescription == null) {
-        throw CameraException('cameraNotFound', 'Back facing camera not found');
-      }
       _cameraController = CameraController(
         cameraDescription,
         ResolutionPreset.high,
@@ -46,9 +41,7 @@ class _ArtCameraState extends State<PreviewCamera> with WidgetsBindingObserver {
         imageFormatGroup: ImageFormatGroup.yuv420,
       );
       await _cameraController.initialize();
-      if (_cameraController != null) {
-        widget.onReady(_cameraController);
-      }
+      widget.onReady(_cameraController);
     } on CameraException catch (error) {
       widget.onError(error);
     }

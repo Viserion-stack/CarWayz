@@ -1,10 +1,6 @@
-import 'package:camera/camera.dart';
-import 'package:car_wayz/core/theme/theme.dart';
 import 'package:car_wayz/export.dart';
-import 'package:car_wayz/presentation/screens/add/widgets/preview_camera.dart';
-import 'package:car_wayz/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 class AddScreen extends StatefulWidget {
   static const routeName = '/add';
@@ -35,7 +31,7 @@ class _AddScreenState extends State<AddScreen> {
                 _controller = cameraController;
               },
               onError: (CameraException error) {
-                print("Przeczyść aparat");
+                debugPrint('Camera error');
               },
             ),
           ),
@@ -44,7 +40,7 @@ class _AddScreenState extends State<AddScreen> {
               image = await picker.pickImage(source: ImageSource.gallery);
 
               if (image != null) {
-                print(image!.path);
+                debugPrint(image!.path);
               }
             },
           ),
@@ -64,7 +60,6 @@ class _AddScreenState extends State<AddScreen> {
 class _TakePhotoButton extends StatelessWidget {
   const _TakePhotoButton({
     required this.onPressed,
-    super.key,
   });
 
   final VoidCallback onPressed;
@@ -106,7 +101,6 @@ class _TakePhotoButton extends StatelessWidget {
 class _SelectImageButton extends StatelessWidget {
   const _SelectImageButton({
     required this.onPressed,
-    super.key,
   });
 
   final VoidCallback onPressed;
@@ -130,7 +124,6 @@ class _SelectImageButton extends StatelessWidget {
 class _CloseButton extends StatelessWidget {
   const _CloseButton({
     required this.onPressed,
-    super.key,
   });
 
   final VoidCallback onPressed;

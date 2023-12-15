@@ -142,11 +142,13 @@ class LogOutFailure implements Exception {}
 class AuthRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final ScaffoldMessengerState _scaffold;
   AuthRepository({
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
   })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+        _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
+        _scaffold = scaffoldKey.currentState!;
 
   /// Whether or not the current environment is web
   /// Should only be overridden for testing purposes. Otherwise,
@@ -165,13 +167,18 @@ class AuthRepository {
     return _firebaseAuth.currentUser;
   }
 
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> createUser(
+      {required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
+      SignUpWithEmailAndPasswordFailure message =
+          SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+      _scaffold.clearSnackBars();
+      _scaffold.showSnackBar(SnackBar(content: Text(message.message)));
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
@@ -197,6 +204,9 @@ class AuthRepository {
       }
       await _firebaseAuth.signInWithCredential(credential);
     } on firebase_auth.FirebaseAuthException catch (e) {
+      LogInWithGoogleFailure message = LogInWithGoogleFailure.fromCode(e.code);
+      _scaffold.clearSnackBars();
+      _scaffold.showSnackBar(SnackBar(content: Text(message.message)));
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (_) {
       throw const LogInWithGoogleFailure();
@@ -209,14 +219,13 @@ class AuthRepository {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on firebase_auth.FirebaseAuthException catch (e) {
-      debugPrint(e.toString());
-      //TODO add scaffold messenger with error message
+      LogInWithEmailAndPasswordFailure message =
+          LogInWithEmailAndPasswordFailure.fromCode(e.code);
+      _scaffold.clearSnackBars();
+      _scaffold.showSnackBar(SnackBar(content: Text(message.message)));
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
-      //TODO add scaffold messenger with error message
-
       debugPrint(_.toString());
-
       throw const LogInWithEmailAndPasswordFailure();
     }
   }

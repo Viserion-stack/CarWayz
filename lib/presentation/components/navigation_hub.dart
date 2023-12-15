@@ -1,8 +1,5 @@
 import 'package:car_wayz/export.dart';
 import 'package:car_wayz/presentation/components/auth_provider/auth_state.dart';
-import 'package:car_wayz/presentation/screens/dashboard/dashboard_screen.dart';
-import 'package:car_wayz/presentation/screens/login/login_screen.dart';
-
 class NavigationHub extends StatelessWidget {
   const NavigationHub({
     required this.rootNavigationKey,
@@ -21,10 +18,10 @@ class NavigationHub extends StatelessWidget {
 
         debugPrint(nav.authStateType.toString());
         switch (nav.authStateType) {
-          case AuthStateType.initial:
+          case AuthStateType.unauthenticated:
             debugPrint("checked initial");
             rootNavigationKey.currentContext?.go(LoginScreen.routeName);
-          case AuthStateType.logged:
+          case AuthStateType.authenticated:
             debugPrint("checked logged");
             rootNavigationKey.currentContext?.go(DashboardScreen.routeName);
         }
