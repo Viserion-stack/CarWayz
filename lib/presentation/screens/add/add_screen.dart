@@ -39,59 +39,20 @@ class _AddScreenState extends State<AddScreen> {
               },
             ),
           ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: CupertinoButton(
-              child: Icon(
-                Icons.photo_library_sharp,
-                size: 30,
-                color: context.palette.accentColor,
-              ),
-              onPressed: () async {
-                image = await picker.pickImage(source: ImageSource.gallery);
+          _SelectImageButton(
+            onPressed: () async {
+              image = await picker.pickImage(source: ImageSource.gallery);
 
-                if (image != null) {
-                  print(image!.path);
-                }
-              },
-            ),
+              if (image != null) {
+                print(image!.path);
+              }
+            },
           ),
-          Align(
-            alignment: const Alignment(-0.95, -0.95),
-            child: CupertinoButton(
-              child: Icon(
-                Icons.close,
-                size: 30,
-                color: context.palette.textOnPrimaryColor,
-              ),
-              onPressed: () => context.go(DashboardScreen.routeName),
-            ),
+          _CloseButton(
+            onPressed: () => context.go(DashboardScreen.routeName),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: CupertinoButton(
-              onPressed: () {},
-              child: SizedBox(
-                width: 80.0,
-                height: 80.0,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(0.0),
-                    backgroundColor: Colors.transparent,
-                    shape: const CircleBorder(),
-                    side: const BorderSide(
-                      color: Colors.white,
-                      width: 3.0,
-                    ),
-                  ),
-                  child: const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 31,
-                  ),
-                ),
-              ),
-            ),
+          _TakePhotoButton(
+            onPressed: () {},
           ),
         ],
       ),
@@ -100,40 +61,92 @@ class _AddScreenState extends State<AddScreen> {
   }
 }
 
-class _AddAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _AddAppBar({
-    this.leading,
-    this.title,
-    this.action,
+class _TakePhotoButton extends StatelessWidget {
+  const _TakePhotoButton({
+    required this.onPressed,
     super.key,
   });
 
-  final Widget? leading;
-  final Widget? title;
-  final Widget? action;
+  final VoidCallback onPressed;
 
-  static const _appBarHeight = 60.0;
+  static const _buttonSize = 80.0;
+  static const _buttonBorderWidth = 3.0;
+  static const _buttonRadius = 31.0;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 40,
-        bottom: 20,
-        left: 16,
-        right: 16,
-      ),
-      child: Row(
-        children: [
-          leading ?? const SizedBox.shrink(),
-          Expanded(child: title ?? const SizedBox.shrink()),
-          action ?? const SizedBox.shrink(),
-        ],
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: CupertinoButton(
+        onPressed: () {},
+        child: SizedBox(
+          width: _buttonSize,
+          height: _buttonSize,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shape: const CircleBorder(),
+              side: const BorderSide(
+                color: Colors.white,
+                width: _buttonBorderWidth,
+              ),
+            ),
+            child: const CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: _buttonRadius,
+            ),
+          ),
+        ),
       ),
     );
   }
+}
+
+class _SelectImageButton extends StatelessWidget {
+  const _SelectImageButton({
+    required this.onPressed,
+    super.key,
+  });
+
+  final VoidCallback onPressed;
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(_appBarHeight);
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: CupertinoButton(
+        onPressed: onPressed,
+        child: Icon(
+          Icons.photo_library_sharp,
+          size: 30,
+          color: context.palette.accentColor,
+        ),
+      ),
+    );
+  }
+}
+
+class _CloseButton extends StatelessWidget {
+  const _CloseButton({
+    required this.onPressed,
+    super.key,
+  });
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: const Alignment(-0.95, -0.95),
+      child: CupertinoButton(
+        onPressed: onPressed,
+        child: Icon(
+          Icons.close,
+          size: 30,
+          color: context.palette.textOnPrimaryColor,
+        ),
+      ),
+    );
+  }
 }
