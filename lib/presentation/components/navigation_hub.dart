@@ -26,7 +26,7 @@ class NavigationHub extends StatelessWidget {
             rootNavigationKey.currentContext?.go(LoginScreen.routeName);
           case AuthStateType.logged:
             debugPrint("checked logged");
-            rootNavigationKey.currentContext?.go(AddScreen.routeName);
+            rootNavigationKey.currentContext?.go(DashboardScreen.routeName);
         }
 
         return childWidget;
