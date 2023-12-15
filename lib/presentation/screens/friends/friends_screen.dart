@@ -1,8 +1,6 @@
-import 'package:car_wayz/core/theme/theme.dart';
 import 'package:car_wayz/data/comunity_controller.dart';
 import 'package:car_wayz/export.dart';
 import 'package:car_wayz/presentation/screens/friends/provider/comunity_provider.dart';
-import 'package:flutter/material.dart';
 
 class FriendsScreen extends ConsumerWidget {
   static Page<void> page() => const MaterialPage<void>(child: FriendsScreen());
@@ -10,7 +8,6 @@ class FriendsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Scaffold(
       backgroundColor: context.palette.primaryColor,
       body: Column(
@@ -28,9 +25,9 @@ class FriendsScreen extends ConsumerWidget {
                       itemBuilder: (context, index) {
                         final community = communities[index];
                         return ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(community.avatar),
-                            ),
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(community.avatar),
+                          ),
                           title: Text(community.name),
                           onTap: () {
                             ref.read(communityNameProvider.notifier).update(

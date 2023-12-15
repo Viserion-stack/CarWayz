@@ -1,5 +1,4 @@
 import 'package:car_wayz/data/comunity_controller.dart';
-import 'package:car_wayz/data/repository/community.dart';
 import 'package:car_wayz/export.dart';
 
 import '../../../data/auth_controller.dart';
@@ -55,7 +54,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           IconButton(
               onPressed: () {},
               icon: CircleAvatar(
-                backgroundImage: NetworkImage(user!.profilePic),
+                backgroundImage: NetworkImage(user?.profilePic ?? ''),
                 onBackgroundImageError: (exception, stackTrace) =>
                     const CircleAvatar(
                   backgroundImage: NetworkImage(Constants.avatarDefault),

@@ -1,14 +1,14 @@
-import 'package:car_wayz/data/model/home.dart';
 import 'package:car_wayz/export.dart';
 import 'package:car_wayz/presentation/common/state_type.dart';
+import 'package:car_wayz/presentation/screens/home/provider/home_state.dart';
 
-final homeProvider = StateNotifierProvider<HomeNotifier, Home>(
+final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>(
   (ref) {
-    return HomeNotifier(const Home.initial());
+    return HomeNotifier(const HomeState.initial());
   },
 );
 
-class HomeNotifier extends StateNotifier<Home> {
+class HomeNotifier extends StateNotifier<HomeState> {
   HomeNotifier(super.state);
 
   void changeName() {

@@ -1,22 +1,23 @@
 import 'package:car_wayz/presentation/common/state_type.dart';
 
-class Home {
+class HomeState {
   final String name;
   final StateType state;
-  Home({
+
+  HomeState({
     required this.name,
     required this.state,
   });
 
-  const Home.initial()
+  const HomeState.initial()
       : name = 'dziś',
         state = StateType.loading;
 
-  Home copyWith({
+  HomeState copyWith({
     String? name,
     StateType? state,
   }) {
-    return Home(
+    return HomeState(
       name: name ?? this.name,
       state: state ?? this.state,
     );
@@ -29,7 +30,7 @@ class Home {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Home && other.name == name && other.state == state;
+    return other is HomeState && other.name == name && other.state == state;
   }
 
   @override

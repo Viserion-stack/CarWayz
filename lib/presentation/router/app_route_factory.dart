@@ -1,4 +1,6 @@
 import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/screens/add_post/add_post_route.dart';
+import 'package:car_wayz/presentation/screens/add_post/add_post_screen.dart';
 
 class AppRouteFactory {
   GoRouter router({
@@ -34,6 +36,11 @@ class AppRouteFactory {
             path: SignUpScreen.routeName,
             parentNavigatorKey: rootNavigatorKey,
             builder: (_, state) => siginUpRoute(state),
+          ),
+          GoRoute(
+            path: AddPostScreen.routeName,
+            parentNavigatorKey: rootNavigatorKey,
+            builder: (_, state) => addPostRoute(state),
           ),
         ],
       );
