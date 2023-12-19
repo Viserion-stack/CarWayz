@@ -1,12 +1,15 @@
 import 'package:car_wayz/core/theme/theme.dart';
+import 'package:car_wayz/data/comunity_controller.dart';
+import 'package:car_wayz/export.dart';
 import 'package:flutter/material.dart';
 
-class FriendsScreen extends StatelessWidget {
+class FriendsScreen extends ConsumerWidget {
   static Page<void> page() => const MaterialPage<void>(child: FriendsScreen());
   const FriendsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
     return Scaffold(
       backgroundColor: context.palette.primaryColor,
       body: Column(
@@ -17,6 +20,23 @@ class FriendsScreen extends StatelessWidget {
                 style: context.textTheme.bodyMedium
                     ?.copyWith(color: context.palette.textOnPrimaryColor)),
           ),
+          ref.watch(userCommunitiesProvider).when(
+              data: (communities) => Expanded(
+                    child: ListView.builder(
+                      itemCount: communities.length,
+                      itemBuilder: (context, index) {
+                        final community = communities[index];
+                        return ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(community.avatar),
+                            ),
+                            title: Text(community.name));
+                      },
+                    ),
+                  ),
+              error: (error, stackTrace) =>
+                  Text('Error while loading: ${error.toString()}'),
+              loading: () => const CircularProgressIndicator.adaptive())
         ],
       ),
     );

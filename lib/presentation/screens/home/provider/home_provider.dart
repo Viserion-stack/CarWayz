@@ -21,7 +21,7 @@ class HomeNotifier extends StateNotifier<Home> {
 
   Future<void> fetchData() async {
     Future.delayed(const Duration(seconds: 2), () {
-      debugPrint('Future dokana');
+      debugPrint('Future ');
     });
   }
 }

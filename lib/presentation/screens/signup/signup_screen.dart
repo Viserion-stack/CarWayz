@@ -11,6 +11,11 @@ class SignUpScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('SignUp'),
+        leading: BackButton(
+          onPressed: () {
+            context.go(LoginScreen.routeName);
+          },
+        ),
         centerTitle: true,
       ),
       body: const Center(

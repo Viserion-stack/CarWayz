@@ -1,6 +1,9 @@
+import 'package:car_wayz/data/auth_controller.dart';
+import 'package:car_wayz/data/model/user_model.dart';
 import 'package:car_wayz/export.dart';
-import 'package:car_wayz/presentation/components/auth_provider/auth_state.dart';
-class NavigationHub extends StatelessWidget {
+import 'package:firebase_auth/firebase_auth.dart';
+
+class NavigationHub extends ConsumerWidget {
   const NavigationHub({
     required this.rootNavigationKey,
     required this.childWidget,
@@ -10,21 +13,36 @@ class NavigationHub extends StatelessWidget {
   final GlobalKey<NavigatorState> rootNavigationKey;
   final Widget childWidget;
 
+  void getData(WidgetRef ref, User data) async {
+    UserModel userModel = await ref
+        .watch(authControllerProvider.notifier)
+        .getUserData(data.uid)
+        .first;
+    ref.read(userProvider.notifier).update((state) => userModel);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
       builder: (context, ref, child) {
-        final nav = ref.watch(authProvider);
+        ref.watch(authStateChangeProvider).when(
+              data: (data) {
+                if (data != null) {
+                  debugPrint('Authenticated');
+                  rootNavigationKey.currentContext
+                      ?.go(DashboardScreen.routeName);
+                  getData(ref, data);
+                } else {
+                  debugPrint('UnAuthenticated');
 
-        debugPrint(nav.authStateType.toString());
-        switch (nav.authStateType) {
-          case AuthStateType.unauthenticated:
-            debugPrint("checked initial");
-            rootNavigationKey.currentContext?.go(LoginScreen.routeName);
-          case AuthStateType.authenticated:
-            debugPrint("checked logged");
-            rootNavigationKey.currentContext?.go(DashboardScreen.routeName);
-        }
+                  rootNavigationKey.currentContext?.go(LoginScreen.routeName);
+                }
+
+                return childWidget;
+              },
+              loading: CircularProgressIndicator.adaptive,
+              error: (error, stackTrace) => Text(error.toString()),
+            );
 
         return childWidget;
       },

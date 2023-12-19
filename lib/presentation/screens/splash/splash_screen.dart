@@ -13,7 +13,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 class SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
-    ref.read(authProvider.notifier).onInitiated();
+    //ref.read(authProvider.notifier).onInitiated();
     super.initState();
   }
 

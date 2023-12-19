@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "425463681392-39jevotijsvk8tpd06pu32qol3cvq50m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.car_wayz",
+            "certificate_hash": "e603b627faf69cbcb13bb8a872979625ea100cac"
+          }
+        },
+        {
           "client_id": "425463681392-tqu3mdrkfchjjddsbnqjmb47hpblo6la.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -1,12 +1,30 @@
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:car_wayz/core/constants/firebase_constants.dart';
+import 'package:car_wayz/core/constants/type_defs.dart';
+import 'package:car_wayz/core/failure.dart';
+import 'package:car_wayz/core/providers/firebase_providers.dart';
+import 'package:car_wayz/data/model/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:riverpod/riverpod.dart';
 
-import '../../export.dart';
-import '../model/user.dart';
+import '../../core/constants/app_const.dart';
+import '../model/user.dart' as u;
 
 /// {@template sign_up_with_email_and_password_failure}
 /// Thrown during the sign up process if a failure occurs.
 /// {@endtemplate}
+
+final authRepositoryProvider = Provider(
+  (ref) => AuthRepository(
+    firestore: ref.read(firestoreProvider),
+    firebaseAuth: ref.read(authProvider),
+    googleSignIn: ref.read(googleSignInProvider),
+  ),
+);
 
 class SignUpWithEmailAndPasswordFailure implements Exception {
   /// The associated error message.
@@ -140,14 +158,17 @@ class LogOutFailure implements Exception {}
 /// {@endtemplate}
 
 class AuthRepository {
-  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final ScaffoldMessengerState _scaffold;
+  final FirebaseFirestore _firestore;
   AuthRepository({
-    firebase_auth.FirebaseAuth? firebaseAuth,
+    FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+    FirebaseFirestore? firestore,
+  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
+        _firestore = firestore ?? FirebaseFirestore.instance,
         _scaffold = scaffoldKey.currentState!;
 
   /// Whether or not the current environment is web
@@ -156,14 +177,18 @@ class AuthRepository {
   @visibleForTesting
   bool isWeb = kIsWeb;
 
-  Stream<User> get user {
+  CollectionReference get _users =>
+      _firestore.collection(FirebaseConstants.usersCollection);
+  Stream<u.User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
+      final user = firebaseUser == null ? u.User.empty : firebaseUser.toUser;
       return user;
     });
   }
 
-  firebase_auth.User? get currentUser {
+  Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
+
+  User? get currentUser {
     return _firebaseAuth.currentUser;
   }
 
@@ -174,7 +199,7 @@ class AuthRepository {
         email: email,
         password: password,
       );
-    } on firebase_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       SignUpWithEmailAndPasswordFailure message =
           SignUpWithEmailAndPasswordFailure.fromCode(e.code);
       _scaffold.clearSnackBars();
@@ -185,11 +210,11 @@ class AuthRepository {
     }
   }
 
-  Future<void> logInWithGoogle() async {
+  FutureEither<UserModel> logInWithGoogle() async {
     try {
-      late final firebase_auth.AuthCredential credential;
+      late final AuthCredential credential;
       if (isWeb) {
-        final googleProvider = firebase_auth.GoogleAuthProvider();
+        final googleProvider = GoogleAuthProvider();
         final userCredential = await _firebaseAuth.signInWithPopup(
           googleProvider,
         );
@@ -197,19 +222,39 @@ class AuthRepository {
       } else {
         final googleUser = await _googleSignIn.signIn();
         final gooleAuth = await googleUser!.authentication;
-        credential = firebase_auth.GoogleAuthProvider.credential(
+        credential = GoogleAuthProvider.credential(
           accessToken: gooleAuth.accessToken,
           idToken: gooleAuth.idToken,
         );
       }
-      await _firebaseAuth.signInWithCredential(credential);
-    } on firebase_auth.FirebaseAuthException catch (e) {
+
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+      UserModel userModel;
+      if (userCredential.additionalUserInfo!.isNewUser) {
+        userModel = UserModel(
+          name: userCredential.user!.displayName ?? 'Unnammed',
+          profilePic: userCredential.user!.photoURL ?? Constants.avatarDefault,
+          banner: Constants.bannerDefault,
+          uid: userCredential.user!.uid,
+          isAuthenticated: true,
+          rank: 0,
+          awards: [],
+        );
+        await _users.doc(userCredential.user!.uid).set(userModel.toMap());
+      } else {
+        userModel = await getUserData(userCredential.user!.uid).first;
+      }
+      return right(userModel);
+    } on FirebaseAuthException catch (e) {
       LogInWithGoogleFailure message = LogInWithGoogleFailure.fromCode(e.code);
       _scaffold.clearSnackBars();
       _scaffold.showSnackBar(SnackBar(content: Text(message.message)));
-      throw LogInWithGoogleFailure.fromCode(e.code);
-    } catch (_) {
-      throw const LogInWithGoogleFailure();
+      debugPrint(message.toString());
+      throw e.message!;
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(Failure(e.toString()));
     }
   }
 
@@ -218,7 +263,7 @@ class AuthRepository {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-    } on firebase_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       LogInWithEmailAndPasswordFailure message =
           LogInWithEmailAndPasswordFailure.fromCode(e.code);
       _scaffold.clearSnackBars();
@@ -245,11 +290,16 @@ class AuthRepository {
       throw LogOutFailure();
     }
   }
+
+  Stream<UserModel> getUserData(String uid) {
+    return _users.doc(uid).snapshots().map(
+        (event) => UserModel.fromMap(event.data() as Map<String, dynamic>));
+  }
 }
 
-extension on firebase_auth.User {
+extension on User {
   /// Maps a [firebase_auth.User] into a [User].
-  User get toUser {
-    return User(id: uid, email: email, name: displayName, photo: photoURL);
+  u.User get toUser {
+    return u.User(id: uid, email: email, name: displayName, photo: photoURL);
   }
 }

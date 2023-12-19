@@ -6,7 +6,7 @@ class AppRouteFactory {
     required GlobalKey<NavigatorState> shellNavigatorKey,
   }) =>
       GoRouter(
-        initialLocation: SplashScreen.routeName,
+        initialLocation: LoginScreen.routeName,
         navigatorKey: rootNavigatorKey,
         errorBuilder: (context, state) => splashRoute(state),
         routes: [
