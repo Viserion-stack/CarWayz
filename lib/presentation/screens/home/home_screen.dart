@@ -8,13 +8,13 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //final name = ref.watch(homeProvider).name;
-    final userName = ref.watch(userProvider)!.name ?? '';
+    final userName = ref.watch(userProvider)?.name ?? '';
 
     return Scaffold(
       backgroundColor: context.palette.primaryColor,
       body: Center(
         child: Text(
-          'homescreren ${userName}',
+          'Home Screen $userName',
           style: context.textTheme.bodyMedium
               ?.copyWith(color: context.palette.textOnPrimaryColor),
         ),
