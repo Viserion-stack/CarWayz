@@ -1,6 +1,7 @@
 import 'package:car_wayz/core/theme/theme.dart';
 import 'package:car_wayz/data/comunity_controller.dart';
 import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/screens/friends/provider/comunity_provider.dart';
 import 'package:flutter/material.dart';
 
 class FriendsScreen extends ConsumerWidget {
@@ -30,7 +31,15 @@ class FriendsScreen extends ConsumerWidget {
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(community.avatar),
                             ),
-                            title: Text(community.name));
+                          title: Text(community.name),
+                          onTap: () {
+                            ref.read(communityNameProvider.notifier).update(
+                                (state) => state = communities[index].name);
+                            ref.read(dashboardProvider.notifier).update(
+                                (state) =>
+                                    state = DashboardState.communityDetail);
+                          },
+                        );
                       },
                     ),
                   ),

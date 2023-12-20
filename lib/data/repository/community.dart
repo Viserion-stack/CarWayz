@@ -43,6 +43,11 @@ class CommunityRepository {
     });
   }
 
+  Stream<Community> getCommunityByName(String name) {
+    return _communities.doc(name).snapshots().map((community) =>
+        Community.fromMap(community.data() as Map<String, dynamic>));
+  }
+
   CollectionReference get _communities =>
       _firebaseFirestore.collection(FirebaseConstants.communitiesCollection);
 }
