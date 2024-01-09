@@ -33,6 +33,15 @@ class _CommunityScreenState extends ConsumerState<CommunityScreen> {
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider)!;
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            ref
+                .read(dashboardProvider.notifier)
+                .update((state) => state = DashboardState.home);
+          },
+        ),
+      ),
       body: ref.watch(getCommunityByNameProvider(communityName)).when(
             data: (community) => Column(
               children: [
@@ -45,12 +54,15 @@ class _CommunityScreenState extends ConsumerState<CommunityScreen> {
                           : const Text('Leave this community')),
                 ),
                 const Text('Community detail Screen.'),
-                Image.network(community.avatar),
-                Image.network(community.banner),
+                SizedBox(height: 100, child: Image.network(community.avatar)),
+                Expanded(child: Image.network(community.banner)),
                 Text(community.name),
                 const Text('Posts:'),
                 const Text('Posts #1:'),
                 const Text('Posts:#2:'),
+                const SizedBox(
+                  height: 100,
+                )
               ],
             ),
             error: (error, stacTrace) => Text(error.toString()),

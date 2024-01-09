@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 class Community {
@@ -5,6 +7,8 @@ class Community {
   final String name;
   final String banner;
   final String avatar;
+  final List<String> likes;
+  final List<String> saved;
   final List<String> members;
   final List<String> mods;
   Community({
@@ -12,6 +16,8 @@ class Community {
     required this.name,
     required this.banner,
     required this.avatar,
+    required this.likes,
+    required this.saved,
     required this.members,
     required this.mods,
   });
@@ -21,6 +27,8 @@ class Community {
     String? name,
     String? banner,
     String? avatar,
+    List<String>? likes,
+    List<String>? saved,
     List<String>? members,
     List<String>? mods,
   }) {
@@ -29,6 +37,8 @@ class Community {
       name: name ?? this.name,
       banner: banner ?? this.banner,
       avatar: avatar ?? this.avatar,
+      likes: likes ?? this.likes,
+      saved: saved ?? this.saved,
       members: members ?? this.members,
       mods: mods ?? this.mods,
     );
@@ -40,6 +50,8 @@ class Community {
       'name': name,
       'banner': banner,
       'avatar': avatar,
+      'likes': likes,
+      'saved': saved,
       'members': members,
       'mods': mods,
     };
@@ -51,25 +63,29 @@ class Community {
       name: map['name'] ?? '',
       banner: map['banner'] ?? '',
       avatar: map['avatar'] ?? '',
-      members: List<String>.from(map['members']),
-      mods: List<String>.from(map['mods']),
+      likes: List<String>.from(map['likes'] ?? []),
+      saved: List<String>.from(map['saved'] ?? []),
+      members: List<String>.from(map['members'] ?? []),
+      mods: List<String>.from(map['mods'] ?? []),
     );
   }
 
   @override
   String toString() {
-    return 'Community(id: $id, name: $name, banner: $banner, avatar: $avatar, members: $members, mods: $mods)';
+    return 'Community(id: $id, name: $name, banner: $banner, avatar: $avatar, likes: $likes, saved: $saved, members: $members, mods: $mods)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is Community &&
         other.id == id &&
         other.name == name &&
         other.banner == banner &&
         other.avatar == avatar &&
+        listEquals(other.likes, likes) &&
+        listEquals(other.saved, saved) &&
         listEquals(other.members, members) &&
         listEquals(other.mods, mods);
   }
@@ -80,7 +96,14 @@ class Community {
         name.hashCode ^
         banner.hashCode ^
         avatar.hashCode ^
+        likes.hashCode ^
+        saved.hashCode ^
         members.hashCode ^
         mods.hashCode;
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory Community.fromJson(String source) =>
+      Community.fromMap(json.decode(source));
 }

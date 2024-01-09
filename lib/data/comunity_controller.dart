@@ -8,6 +8,10 @@ final userCommunitiesProvider = StreamProvider((ref) {
   final communityController = ref.watch(communityControllerProvider.notifier);
   return communityController.getUserCommunities();
 });
+final allCommunitiesProvider = StreamProvider((ref) {
+  final communityController = ref.watch(communityControllerProvider.notifier);
+  return communityController.getAllCommunities();
+});
 
 final communityControllerProvider =
     StateNotifierProvider<CommunityController, bool>((ref) {
@@ -42,6 +46,8 @@ class CommunityController extends StateNotifier<bool> {
       avatar: Constants.avatarDefault,
       members: [uid],
       mods: [uid],
+      likes: [],
+      saved: [],
     );
     final res = await _communityRepository.createCommunity(community);
     state = false;
@@ -58,5 +64,17 @@ class CommunityController extends StateNotifier<bool> {
 
   Stream<Community> getCommunityByName(String name) {
     return _communityRepository.getCommunityByName(name);
+  }
+
+  Stream<List<Community>> getAllCommunities() {
+    return _communityRepository.getAllCommunities();
+  }
+
+  Future<void> updateLikeCount(String communityName) async {
+    final uid = _ref.read(userProvider)!.uid;
+
+    final res = await _communityRepository.updateLikeCount(communityName, uid);
+
+    res.fold((l) => (), (r) {});
   }
 }

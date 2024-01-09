@@ -39,7 +39,6 @@ class AddPostScreen extends ConsumerWidget {
 class _PostImage extends StatelessWidget {
   const _PostImage({
     required this.imagePath,
-    super.key,
   });
 
   final String imagePath;
@@ -62,7 +61,6 @@ class _PostImage extends StatelessWidget {
 class _ShareButton extends StatelessWidget {
   const _ShareButton({
     required this.onPressed,
-    super.key,
   });
 
   final VoidCallback onPressed;
@@ -95,7 +93,6 @@ class _ShareButton extends StatelessWidget {
 class _DescriptionTextField extends StatelessWidget {
   const _DescriptionTextField({
     required this.onChanged,
-    super.key,
   });
 
   final Function(String)? onChanged;

@@ -1,3 +1,4 @@
+
 import 'package:car_wayz/core/constants/firebase_constants.dart';
 import 'package:car_wayz/core/constants/type_defs.dart';
 import 'package:car_wayz/core/failure.dart';
@@ -30,6 +31,34 @@ class CommunityRepository {
     }
   }
 
+  FutureVoid updateLikeCount(String communityName, String uid) async {
+    try {
+      var community = _communities.doc(communityName);
+
+      final docRef = _communities.doc(communityName);
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          if (data['likes'].contains(uid)) {
+            community.update({
+              'likes': FieldValue.arrayRemove([uid]),
+            });
+          } else {
+            community.update({
+              'likes': FieldValue.arrayUnion([uid]),
+            });
+          }
+        },
+      );
+      //TODO: handle propper return
+      return right(community);
+    } on FirebaseException catch (e) {
+      return left(Failure(e.message!.toString()));
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
   Stream<List<Community>> getUserCommunities(String uid) {
     return _communities
         .where('members', arrayContains: uid)
@@ -46,6 +75,16 @@ class CommunityRepository {
   Stream<Community> getCommunityByName(String name) {
     return _communities.doc(name).snapshots().map((community) =>
         Community.fromMap(community.data() as Map<String, dynamic>));
+  }
+
+  Stream<List<Community>> getAllCommunities() {
+    return _communities.snapshots().map((event) {
+      List<Community> communities = [];
+      for (var doc in event.docs) {
+        communities.add(Community.fromMap(doc.data() as Map<String, dynamic>));
+      }
+      return communities;
+    });
   }
 
   CollectionReference get _communities =>

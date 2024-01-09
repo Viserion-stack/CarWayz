@@ -9,7 +9,7 @@ class AddNotifier extends StateNotifier<AddState> {
   AddNotifier(super.state);
 
   void setImage({required String image}) {
-    print("set");
+    debugPrint('set');
     state = state.copyWith(imagePath: image);
   }
 }

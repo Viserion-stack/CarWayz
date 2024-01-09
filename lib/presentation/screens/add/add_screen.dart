@@ -54,7 +54,7 @@ class AddScreenState extends ConsumerState<AddScreen> {
               image = await picker.pickImage(source: ImageSource.gallery);
 
               if (image != null) {
-                print(image!.path);
+                debugPrint(image!.path);
                 ref.read(addProvider.notifier).setImage(image: image!.path);
               }
             },
