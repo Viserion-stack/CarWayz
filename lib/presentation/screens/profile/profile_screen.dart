@@ -1,5 +1,6 @@
 import 'package:car_wayz/data/comunity_controller.dart';
 import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/common/app_localizations.dart';
 
 import '../../../data/auth_controller.dart';
 
@@ -45,9 +46,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final isLoading = ref.watch(communityControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Profile Settings',
-          style: TextStyle(color: Colors.yellow),
+        title: Text(
+          context.strings.profileSettingsText,
+          style: const TextStyle(color: Colors.yellow),
         ),
         backgroundColor: Colors.transparent,
         actions: [
@@ -69,9 +70,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Create your car community!',
-                style: TextStyle(color: Colors.yellow),
+              Text(
+                context.strings.createCommunityText,
+                style: const TextStyle(color: Colors.yellow),
               ),
               Container(
                 decoration: const BoxDecoration(
@@ -128,11 +129,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: context.palette.accentColor),
-                      child: const Text('Create'),
+                      child: Text(context.strings.create),
                     ),
               Gap.large,
               Text(
-                'Profile screen',
+                context.strings.profileSettingsText,
                 style: context.textTheme.bodyMedium
                     ?.copyWith(color: context.palette.textOnPrimaryColor),
               ),
@@ -145,7 +146,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: context.palette.accentColor),
-                child: const Text('Wyloguj'),
+                child: Text(context.strings.signOut),
               )
             ],
           ),

@@ -1,0 +1,23 @@
+{
+    "appTitle": "Application",
+    "@appTitle": {
+        "description": "App name"
+    },
+    "splash": "Splash",
+    "@splash": {
+        "description": "Splash screen name"
+    },
+    "dashboardProfile": "Profil",
+    "dashboardHome": "Home",
+    "loginButtonText": "Login",
+    "loginSignWithGoogle": "Zaloguj przez Google",
+    "createAccountButtonText": "Utwórz konto",
+    "password": "Hasło",
+    "email": "Email",
+    "confirmPassword": "Potwierdź hasło",
+    "singUpButtonText": "Zarejestruj się",
+    "createCommunityText": "Stwórz swoją społeczność samochodową!",
+    "signOut": "Wyloguj",
+    "create": "Utwórz",
+    "profileSettingsText": "Ustawienia konta"
+}

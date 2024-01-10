@@ -2,21 +2,23 @@ import 'package:car_wayz/data/auth_controller.dart';
 import 'package:car_wayz/data/comunity_controller.dart';
 
 import '../../../export.dart';
-import 'provider/comunity_provider.dart';
+import '../friends/provider/comunity_provider.dart';
 
-class CommunityScreen extends ConsumerStatefulWidget {
-  const CommunityScreen({super.key});
+class CarCommunityDetailsScreen extends ConsumerStatefulWidget {
+  const CarCommunityDetailsScreen({super.key});
+  static const routeName = '/car-community-detail';
 
   static Page<void> page() {
-    return const MaterialPage<void>(child: CommunityScreen());
+    return const MaterialPage<void>(child: CarCommunityDetailsScreen());
   }
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CommunityScreenState();
+      _CarCommunityDetailsScreenState();
 }
 
-class _CommunityScreenState extends ConsumerState<CommunityScreen> {
+class _CarCommunityDetailsScreenState
+    extends ConsumerState<CarCommunityDetailsScreen> {
   String communityName = '';
   @override
   void initState() {
@@ -35,11 +37,7 @@ class _CommunityScreenState extends ConsumerState<CommunityScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: () {
-            ref
-                .read(dashboardProvider.notifier)
-                .update((state) => state = DashboardState.home);
-          },
+          onPressed: () => context.go(DashboardScreen.routeName),
         ),
       ),
       body: ref.watch(getCommunityByNameProvider(communityName)).when(
@@ -48,10 +46,11 @@ class _CommunityScreenState extends ConsumerState<CommunityScreen> {
                 Align(
                   alignment: Alignment.topRight,
                   child: OutlinedButton(
-                      onPressed: () {},
-                      child: community.members.contains(user.uid)
-                          ? const Text('Joint this community')
-                          : const Text('Leave this community')),
+                    onPressed: () {},
+                    child: community.members.contains(user.uid)
+                        ? const Text('Joint this community')
+                        : const Text('Leave this community'),
+                  ),
                 ),
                 const Text('Community detail Screen.'),
                 SizedBox(height: 100, child: Image.network(community.avatar)),

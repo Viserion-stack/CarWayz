@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'translations_en.dart';
+import 'translations_pl.dart';
 
 /// Callers can lookup localized strings with an instance of Translations
 /// returned by `Translations.of(context)`.
@@ -88,7 +89,8 @@ abstract class Translations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('en')
+    Locale('en'),
+    Locale('pl')
   ];
 
   /// App name
@@ -114,6 +116,72 @@ abstract class Translations {
   /// In en, this message translates to:
   /// **'Home'**
   String get dashboardHome;
+
+  /// No description provided for @loginButtonText.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginButtonText;
+
+  /// No description provided for @loginSignWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Google'**
+  String get loginSignWithGoogle;
+
+  /// No description provided for @createAccountButtonText.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccountButtonText;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get email;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @singUpButtonText.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get singUpButtonText;
+
+  /// No description provided for @createCommunityText.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your car community!'**
+  String get createCommunityText;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signOut;
+
+  /// No description provided for @create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create;
+
+  /// No description provided for @profileSettingsText.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Settings'**
+  String get profileSettingsText;
 }
 
 class _TranslationsDelegate extends LocalizationsDelegate<Translations> {
@@ -125,7 +193,7 @@ class _TranslationsDelegate extends LocalizationsDelegate<Translations> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'pl'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TranslationsDelegate old) => false;
@@ -137,6 +205,7 @@ Translations lookupTranslations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en': return TranslationsEn();
+    case 'pl': return TranslationsPl();
   }
 
   throw FlutterError(

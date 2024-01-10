@@ -1,4 +1,5 @@
 import 'package:car_wayz/export.dart';
+import 'package:car_wayz/presentation/common/app_localizations.dart';
 import 'package:car_wayz/presentation/screens/login/widgets/login_form.dart';
 
 class LoginScreen extends ConsumerWidget {
@@ -12,7 +13,7 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text(context.strings.loginButtonText),
         centerTitle: true,
       ),
       body: const Center(

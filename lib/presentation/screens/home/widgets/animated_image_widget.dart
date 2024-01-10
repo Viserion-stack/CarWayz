@@ -23,11 +23,13 @@ class _AnimatedimageState extends State<Animatedimage>
   late Animation<double> _animation;
   bool isimageError = false;
 
+  static const _duration = 20;
+
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: _duration),
     );
     _animation = CurvedAnimation(
       curve: Curves.linear,
@@ -59,11 +61,11 @@ class _AnimatedimageState extends State<Animatedimage>
   Widget build(BuildContext context) {
     return Hero(
       tag: widget.artId,
-      //tag: 'tag-1',
       child: CachedNetworkImage(
         progressIndicatorBuilder: (_, url, download) {
           if (download.progress != null) {
             final percent = download.progress! * 100;
+
             return Text('$percent% done loading');
           }
 
@@ -71,15 +73,14 @@ class _AnimatedimageState extends State<Animatedimage>
         },
         errorWidget: (context, url, error) {
           canceLisetner();
+
           return Image.network(url);
         },
         imageUrl: widget.imageUrl,
-        //alignment: Alignment.center,
         height: double.infinity,
         width: double.infinity,
         fit: BoxFit.cover,
         alignment: FractionalOffset((_animation.value), 0),
-        //alignment: Alignment((_animation.value), (-1 + _animation.value)),
       ),
     );
   }
