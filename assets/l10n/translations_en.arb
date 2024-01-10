@@ -10,7 +10,7 @@
     "dashboardProfile": "Profile",
     "dashboardHome": "Home",
     "loginButtonText": "Login",
-    "loginSignWithGoogle": "Sign in with Google",
+    "loginSignWith": "Sign in with",
     "createAccountButtonText": "Create Account",
     "password": "Password",
     "email": "Email Address",
@@ -19,5 +19,6 @@
     "createCommunityText": "Create your car community!",
     "signOut": "Sign Out",
     "create": "Create",
-    "profileSettingsText": "Profile Settings"
+    "profileSettingsText": "Profile Settings",
+    "loginOr": "- OR -"
 }

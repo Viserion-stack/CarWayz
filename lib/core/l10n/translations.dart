@@ -123,11 +123,11 @@ abstract class Translations {
   /// **'Login'**
   String get loginButtonText;
 
-  /// No description provided for @loginSignWithGoogle.
+  /// No description provided for @loginSignWith.
   ///
   /// In en, this message translates to:
-  /// **'Sign in with Google'**
-  String get loginSignWithGoogle;
+  /// **'Sign in with'**
+  String get loginSignWith;
 
   /// No description provided for @createAccountButtonText.
   ///
@@ -182,6 +182,12 @@ abstract class Translations {
   /// In en, this message translates to:
   /// **'Profile Settings'**
   String get profileSettingsText;
+
+  /// No description provided for @loginOr.
+  ///
+  /// In en, this message translates to:
+  /// **'- OR -'**
+  String get loginOr;
 }
 
 class _TranslationsDelegate extends LocalizationsDelegate<Translations> {

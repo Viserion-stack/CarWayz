@@ -20,7 +20,7 @@ class TranslationsEn extends Translations {
   String get loginButtonText => 'Login';
 
   @override
-  String get loginSignWithGoogle => 'Sign in with Google';
+  String get loginSignWith => 'Sign in with';
 
   @override
   String get createAccountButtonText => 'Create Account';
@@ -48,4 +48,7 @@ class TranslationsEn extends Translations {
 
   @override
   String get profileSettingsText => 'Profile Settings';
+
+  @override
+  String get loginOr => '- OR -';
 }
