@@ -8,5 +8,16 @@
         "description": "Splash screen name"
     },
     "dashboardProfile": "Profile",
-    "dashboardHome": "Home"
+    "dashboardHome": "Home",
+    "loginButtonText": "Login",
+    "loginSignWithGoogle": "Sign in with Google",
+    "createAccountButtonText": "Create Account",
+    "password": "Password",
+    "email": "Email Address",
+    "confirmPassword": "Confirm Password",
+    "singUpButtonText": "Sign Up",
+    "createCommunityText": "Create your car community!",
+    "signOut": "Sign Out",
+    "create": "Create",
+    "profileSettingsText": "Profile Settings"
 }

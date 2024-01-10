@@ -1,6 +1,8 @@
 import 'package:car_wayz/export.dart';
 import 'package:car_wayz/presentation/screens/add_post/add_post_route.dart';
 import 'package:car_wayz/presentation/screens/add_post/add_post_screen.dart';
+import 'package:car_wayz/presentation/screens/car_community_details/car_community_detail_route.dart';
+import 'package:car_wayz/presentation/screens/car_community_details/car_community_detail_screen.dart';
 
 class AppRouteFactory {
   GoRouter router({
@@ -41,6 +43,11 @@ class AppRouteFactory {
             path: AddPostScreen.routeName,
             parentNavigatorKey: rootNavigatorKey,
             builder: (_, state) => addPostRoute(state),
+          ),
+          GoRoute(
+            path: CarCommunityDetailsScreen.routeName,
+            parentNavigatorKey: rootNavigatorKey,
+            builder: (_, state) => carCommunityDetailRoute(state),
           ),
         ],
       );

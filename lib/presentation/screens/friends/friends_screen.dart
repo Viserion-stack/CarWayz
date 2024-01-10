@@ -14,9 +14,11 @@ class FriendsScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text('Friends screen',
-                style: context.textTheme.bodyMedium
-                    ?.copyWith(color: context.palette.textOnPrimaryColor)),
+            child: Text(
+              'Friends screen',
+              style: context.textTheme.bodyMedium
+                  ?.copyWith(color: context.palette.textOnPrimaryColor),
+            ),
           ),
           ref.watch(userCommunitiesProvider).when(
               data: (communities) => Expanded(
@@ -32,9 +34,9 @@ class FriendsScreen extends ConsumerWidget {
                           onTap: () {
                             ref.read(communityNameProvider.notifier).update(
                                 (state) => state = communities[index].name);
-                            ref.read(dashboardProvider.notifier).update(
-                                (state) =>
-                                    state = DashboardState.communityDetail);
+                            // ref.read(dashboardProvider.notifier).update(
+                            //     (state) =>
+                            //         state = DashboardState.communityDetail);
                           },
                         );
                       },

@@ -28,32 +28,39 @@ class RightPanelState extends ConsumerState<RightPanel> {
     super.didChangeDependencies();
   }
 
+  static const _panelWidth = 60.0;
+  static const _panelHeight = 220.0;
+  static const _likeButtonSize = 18.0;
+  static const _panelCornerRadius = 30.0;
+  static const _panelBacgroundOpacity = 0.4;
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider)!;
-    return SizedBox(
-      width: 60,
-      height: 200,
+
+    return Container(
+      width: _panelWidth,
+      height: _panelHeight,
+      decoration: BoxDecoration(
+        color:
+            context.palette.darkGrayColor.withOpacity(_panelBacgroundOpacity),
+        borderRadius: BorderRadius.circular(_panelCornerRadius),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           LikeButtonWidget(
-            size: 18,
+            size: _likeButtonSize,
             community: widget.community,
             uid: user.uid,
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          Gap.medium,
           SaveButtonWidget(
             community: widget.community,
-            //size: 18,
             uid: user.uid,
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          Gap.medium,
           ShareWidgetButton(
             community: widget.community,
           ),
@@ -83,11 +90,10 @@ class LikeButtonWidget extends ConsumerStatefulWidget {
 class LikeButtonWidgetState extends ConsumerState<LikeButtonWidget> {
   // bool isLiked = false;
   // int likeCount = 0;
+  static const _size = 35.0;
 
   @override
   Widget build(BuildContext context) {
-    const double size = 35;
-
     return LikeButton(
       postFrameCallback: (state) async {
         // setState(() {
@@ -102,7 +108,7 @@ class LikeButtonWidgetState extends ConsumerState<LikeButtonWidget> {
       likeCountAnimationType: widget.community.likes.length > 999
           ? LikeCountAnimationType.none
           : LikeCountAnimationType.part,
-      size: size,
+      size: _size,
       isLiked: widget.community.likes.contains(widget.uid) ? true : false,
       likeCount: widget.community.likes.length,
       likeBuilder: (isLiked) {
@@ -110,17 +116,21 @@ class LikeButtonWidgetState extends ConsumerState<LikeButtonWidget> {
         return Icon(
           Icons.favorite,
           color: color,
-          size: size,
+          size: _size,
         );
       },
       countBuilder: (count, isLiked, text) {
         const color = Colors.white;
 
         return Text(
-            NumberFormat.compactCurrency(decimalDigits: 0, symbol: '')
-                .format(int.tryParse(text)),
-            style: const TextStyle(
-                color: color, fontSize: 15, fontWeight: FontWeight.bold));
+          NumberFormat.compactCurrency(decimalDigits: 0, symbol: '')
+              .format(int.tryParse(text)),
+          style: const TextStyle(
+            color: color,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        );
       },
       countPostion: CountPostion.bottom,
       onTap: (isLiked) async {
@@ -154,10 +164,10 @@ class _SaveButtonWidgetState extends State<SaveButtonWidget> {
   bool isSaved = false;
   int savedCount = 17;
 
+  static const _saveButtonSize = 35.0;
+
   @override
   Widget build(BuildContext context) {
-    const double size = 35;
-
     return LikeButton(
       postFrameCallback: (state) async {
         // SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -175,7 +185,7 @@ class _SaveButtonWidgetState extends State<SaveButtonWidget> {
           ? LikeCountAnimationType.none
           : LikeCountAnimationType.part,
 
-      size: size,
+      size: _saveButtonSize,
       isLiked: isSaved,
       likeCount: savedCount,
       likeBuilder: (isSaved) {
@@ -183,17 +193,21 @@ class _SaveButtonWidgetState extends State<SaveButtonWidget> {
         return Icon(
           isSaved ? Icons.bookmark_added_rounded : Icons.bookmark_add,
           color: color,
-          size: size,
+          size: _saveButtonSize,
         );
       },
       countBuilder: (count, isSaved, text) {
         const color = Colors.white;
 
         return Text(
-            NumberFormat.compactCurrency(decimalDigits: 0, symbol: '')
-                .format(int.tryParse(text)),
-            style: const TextStyle(
-                color: color, fontSize: 15, fontWeight: FontWeight.bold));
+          NumberFormat.compactCurrency(decimalDigits: 0, symbol: '')
+              .format(int.tryParse(text)),
+          style: const TextStyle(
+            color: color,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        );
       },
       countPostion: CountPostion.bottom,
       //likeCountPadding: const EdgeInsets.only(left: 12),
@@ -260,28 +274,31 @@ class _ShareWidgetButtonState extends State<ShareWidgetButton>
     super.dispose();
   }
 
+  static const _shareButtonRadius = 50.0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 37 + (_animation.value * 4),
-        height: 37 + (_animation.value * 4),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(50),
+      width: 37 + (_animation.value * 4),
+      height: 37 + (_animation.value * 4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(_shareButtonRadius),
+      ),
+      child: ElevatedButton(
+        onPressed: () {
+          // ShareHelper.share(widget.art.name!, widget.art.imageUrl!);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          shape: const CircleBorder(),
+          padding: EdgeInsets.zero,
         ),
-        child: ElevatedButton(
-          onPressed: () {
-            // ShareHelper.share(widget.art.name!, widget.art.imageUrl!);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: const CircleBorder(),
-            padding: EdgeInsets.zero,
-          ),
-          child: const Icon(
-            Icons.ios_share_outlined,
-            color: Colors.black,
-          ),
-        ));
+        child: const Icon(
+          Icons.ios_share_outlined,
+          color: Colors.black,
+        ),
+      ),
+    );
   }
 }

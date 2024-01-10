@@ -5,7 +5,6 @@ enum DashboardState {
   friends,
   ranking,
   profile,
-  communityDetail,
 }
 
 final dashboardProvider =
