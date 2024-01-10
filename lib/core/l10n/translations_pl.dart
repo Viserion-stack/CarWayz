@@ -17,10 +17,10 @@ class TranslationsPl extends Translations {
   String get dashboardHome => 'Home';
 
   @override
-  String get loginButtonText => 'Login';
+  String get loginButtonText => 'Zaloguj';
 
   @override
-  String get loginSignWithGoogle => 'Zaloguj przez Google';
+  String get loginSignWith => 'Zaloguj przez';
 
   @override
   String get createAccountButtonText => 'Utwórz konto';
@@ -48,4 +48,7 @@ class TranslationsPl extends Translations {
 
   @override
   String get profileSettingsText => 'Ustawienia konta';
+
+  @override
+  String get loginOr => '- LUB -';
 }

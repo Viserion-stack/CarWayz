@@ -53,14 +53,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: CircleAvatar(
-                backgroundImage: NetworkImage(user?.profilePic ?? ''),
-                onBackgroundImageError: (exception, stackTrace) =>
-                    const CircleAvatar(
-                  backgroundImage: NetworkImage(Constants.avatarDefault),
-                ),
-              ))
+            onPressed: () {},
+            icon: CircleAvatar(
+              backgroundImage: NetworkImage(user?.profilePic ?? ''),
+              onBackgroundImageError: (exception, stackTrace) =>
+                  const CircleAvatar(
+                backgroundImage: NetworkImage(Constants.avatarDefault),
+              ),
+            ),
+          )
         ],
       ),
       backgroundColor: context.palette.primaryColor,

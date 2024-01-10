@@ -68,7 +68,6 @@ class _AnimatedimageState extends State<Animatedimage>
 
             return Text('$percent% done loading');
           }
-
           return const Text('Loaded Url');
         },
         errorWidget: (context, url, error) {

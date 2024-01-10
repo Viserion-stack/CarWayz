@@ -21,30 +21,31 @@ class FriendsScreen extends ConsumerWidget {
             ),
           ),
           ref.watch(userCommunitiesProvider).when(
-              data: (communities) => Expanded(
-                    child: ListView.builder(
-                      itemCount: communities.length,
-                      itemBuilder: (context, index) {
-                        final community = communities[index];
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(community.avatar),
-                          ),
-                          title: Text(community.name),
-                          onTap: () {
-                            ref.read(communityNameProvider.notifier).update(
-                                (state) => state = communities[index].name);
-                            // ref.read(dashboardProvider.notifier).update(
-                            //     (state) =>
-                            //         state = DashboardState.communityDetail);
-                          },
-                        );
-                      },
-                    ),
+                data: (communities) => Expanded(
+                  child: ListView.builder(
+                    itemCount: communities.length,
+                    itemBuilder: (context, index) {
+                      final community = communities[index];
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(community.avatar),
+                        ),
+                        title: Text(community.name),
+                        onTap: () {
+                          ref.read(communityNameProvider.notifier).update(
+                              (state) => state = communities[index].name);
+                          // ref.read(dashboardProvider.notifier).update(
+                          //     (state) =>
+                          //         state = DashboardState.communityDetail);
+                        },
+                      );
+                    },
                   ),
-              error: (error, stackTrace) =>
-                  Text('Error while loading: ${error.toString()}'),
-              loading: () => const CircularProgressIndicator.adaptive())
+                ),
+                error: (error, stackTrace) =>
+                    Text('Error while loading: ${error.toString()}'),
+                loading: () => const CircularProgressIndicator.adaptive(),
+              )
         ],
       ),
     );

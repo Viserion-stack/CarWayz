@@ -9,8 +9,8 @@
     },
     "dashboardProfile": "Profil",
     "dashboardHome": "Home",
-    "loginButtonText": "Login",
-    "loginSignWithGoogle": "Zaloguj przez Google",
+    "loginButtonText": "Zaloguj",
+    "loginSignWith": "Zaloguj przez",
     "createAccountButtonText": "Utwórz konto",
     "password": "Hasło",
     "email": "Email",
@@ -19,5 +19,6 @@
     "createCommunityText": "Stwórz swoją społeczność samochodową!",
     "signOut": "Wyloguj",
     "create": "Utwórz",
-    "profileSettingsText": "Ustawienia konta"
+    "profileSettingsText": "Ustawienia konta",
+    "loginOr": "- LUB -"
 }

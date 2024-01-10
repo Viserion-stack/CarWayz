@@ -1,12 +1,12 @@
 import 'package:car_wayz/export.dart';
-
-import '../../../../core/common/google_sign_in_button.dart';
+import 'package:car_wayz/presentation/common/app_localizations.dart';
+import 'package:car_wayz/presentation/common_ui/car_wayz_input_field.dart';
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
 
   @override
-  LoginFormState createState() => LoginFormState();
+  ConsumerState<LoginForm> createState() => LoginFormState();
 }
 
 class LoginFormState extends ConsumerState<LoginForm> {
@@ -24,67 +24,48 @@ class LoginFormState extends ConsumerState<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Padding(
+      padding: const EdgeInsets.all(Insets.large),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-            child: Image.asset('assets/images/login.png'),
-          ),
-          Card(
-            margin: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Form(
-                    key: _form,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Email Adress'),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          autocorrect: false,
-                          textCapitalization: TextCapitalization.none,
-                          validator: (value) {
-                            if (value == null ||
-                                value.trim().isEmpty ||
-                                !value.contains('@')) {
-                              return 'Please enter valid email adress.';
-                            }
-                            return null;
-                          },
-                          onSaved: (newValue) {
-                            email = newValue!;
-                          },
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Password'),
-                          ),
-                          obscureText: true,
-                          validator: (value) {
-                            if (value == null || value.trim().length < 6) {
-                              return 'Enter least 6 characters.';
-                            }
-                            return null;
-                          },
-                          onSaved: (newValue) {
-                            password = newValue!;
-                          },
-                        ),
-                      ],
-                    )),
-              ),
+          Form(
+            key: _form,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CarWayzInputField(
+                  label: context.strings.email,
+                  validator: (value) {
+                    if (value == null ||
+                        value.trim().isEmpty ||
+                        !value.contains('@')) {
+                      return 'Please enter valid email adress.';
+                    }
+                    return null;
+                  },
+                  onSaved: (newValue) {
+                    email = newValue!;
+                  },
+                ),
+                Gap.large,
+                CarWayzInputField(
+                  label: context.strings.password,
+                  isObscureText: true,
+                  validator: (value) {
+                    if (value == null || value.trim().length < 6) {
+                      return 'Enter least 6 characters.';
+                    }
+                    return null;
+                  },
+                  onSaved: (newValue) {
+                    password = newValue!;
+                  },
+                ),
+              ],
             ),
           ),
           Gap.medium,
-          _LoginButton(onTap: _submit),
-          const GoogleSignInButton(),
-          _SignUpButton(),
+          _LoginButton(onTap: _submit)
         ],
       ),
     );
@@ -96,33 +77,29 @@ class _LoginButton extends StatelessWidget {
   const _LoginButton({
     required this.onTap,
   });
+
+  static const _buttonRadius = 30.0;
+
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      key: const Key('loginForm_continue_raisedButton'),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        backgroundColor: const Color(0xFFFFD600),
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: Insets.large,
+        left: Insets.large,
       ),
-      onPressed: onTap,
-      child: const Text('Login'),
-    );
-  }
-}
-
-
-
-class _SignUpButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      key: const Key('loginForm_createAccount_flatButton'),
-      onPressed: () {
-        context.go(SignUpScreen.routeName);
-      },
-      child: Text(
-        'CREATE ACCOUNT',
-        style: TextStyle(color: Theme.of(context).primaryColor),
+      child: ElevatedButton(
+        key: const Key('loginForm_continue_raisedButton'),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(_buttonRadius),
+          ),
+          backgroundColor: context.palette.accentColor,
+        ),
+        onPressed: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Insets.xxxLarge),
+          child: Text(context.strings.loginButtonText),
+        ),
       ),
     );
   }
