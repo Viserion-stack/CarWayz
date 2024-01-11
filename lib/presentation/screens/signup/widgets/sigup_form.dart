@@ -1,5 +1,6 @@
 import 'package:car_wayz/export.dart';
 import 'package:car_wayz/presentation/common/app_localizations.dart';
+import 'package:car_wayz/presentation/common/validators.dart';
 import 'package:car_wayz/presentation/common_ui/car_wayz_input_field.dart';
 
 class SignUpForm extends ConsumerStatefulWidget {
@@ -36,14 +37,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                 children: [
                   CarWayzInputField(
                     label: context.strings.email,
-                    validator: (value) {
-                      if (value == null ||
-                          value.trim().isEmpty ||
-                          !value.contains('@')) {
-                        return 'Please enter valid email adress.';
-                      }
-                      return null;
-                    },
+                    validator: (value) => emailValidator(value),
                     onSaved: (newValue) {
                       email = newValue!;
                     },
@@ -53,12 +47,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                     label: context.strings.password,
 
                     isObscureText: true,
-                    validator: (value) {
-                      if (value == null || value.trim().length < 6) {
-                        return 'Enter least 6 characters.';
-                      }
-                      return null;
-                    },
+                    validator: (value) => passwordValidator(value),
                     // onChanged: (value) {
                     //   password = value;
                     // },
@@ -70,12 +59,8 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                   CarWayzInputField(
                     label: context.strings.confirmPassword,
                     isObscureText: true,
-                    validator: (value) {
-                      if (value != password) {
-                        return 'Passowrd did not match.';
-                      }
-                      return null;
-                    },
+                    validator: (value) =>
+                        confirmPasswordValidator(value, password),
                     onSaved: (newValue) {
                       //password = newValue!;
                     },

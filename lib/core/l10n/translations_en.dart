@@ -2,7 +2,7 @@ import 'translations.dart';
 
 /// The translations for English (`en`).
 class TranslationsEn extends Translations {
-  TranslationsEn([String locale = 'en']) : super(locale);
+  TranslationsEn([super.locale = 'en']);
 
   @override
   String get appTitle => 'Application';

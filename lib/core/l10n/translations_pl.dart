@@ -2,7 +2,7 @@ import 'translations.dart';
 
 /// The translations for Polish (`pl`).
 class TranslationsPl extends Translations {
-  TranslationsPl([String locale = 'pl']) : super(locale);
+  TranslationsPl([super.locale = 'pl']);
 
   @override
   String get appTitle => 'Application';
